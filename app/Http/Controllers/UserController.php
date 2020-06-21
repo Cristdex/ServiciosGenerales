@@ -2,21 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserFormRequest;
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\UserFormRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+
+    public function __construct()
     {
-        $users= User::all();
-        return view('usuarios.index', ['users' => $users]);
+        $this->middleware('auth');
+    }
+
+    public function index(Request $request)
+    {
+        
+
+        if($request){
+           
+            $query = trim($request->get('search'));
+            $users = User::where('name','LIKE','%'.$query.'%')->orderBy('id','asc')->paginate(5);
+
+            return view('usuarios.index',['users'=> $users, 'search' => $query]);
+
+        }else{
+        
+        $users = User::all();
+        return view('usuarios/index', ['users' => $users]);
+        }
     }
 
     /**
@@ -38,15 +52,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $usuario = new User();
-
-        $usuario->name = request('name');
+        $usuario->name =  request('name');
         $usuario->email = request('email');
         $usuario->password = request('password');
 
         $usuario->save();
 
         return redirect('/usuarios');
-
     }
 
     /**
@@ -57,7 +69,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('usuarios.show', ['user'=> User::findOrFail($id)]);
+        return view('usuarios.show',[   'user'=> User::findOrFail($id)]);
     }
 
     /**
@@ -68,7 +80,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('usuarios.edit', ['user'=> User::findOrFail($id)]);
+        return view('usuarios.edit',[   'user'=> User::findOrFail($id)]);
     }
 
     /**
@@ -81,14 +93,12 @@ class UserController extends Controller
     public function update(UserFormRequest $request, $id)
     {
         $usuario = User::findOrFail($id);
-
-        $usuario->name = $request->get('name');
+        $usuario->name =  $request->get('name');
         $usuario->email = $request->get('email');
-
+        
         $usuario->update();
 
-        return redirect('/usuarios');
-
+        return redirect('/usuarios'); 
     }
 
     /**
@@ -99,9 +109,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = user::findOrFail($id);
 
         $usuario->delete();
+
         return redirect('/usuarios');
+
     }
 }

@@ -29,7 +29,6 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    //RouteServiceProvider::HOME
     protected $redirectTo = '/';
 
     /**
