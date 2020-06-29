@@ -67,7 +67,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
+                        <img src="{{asset('dist/img/user1-128x128.jpg')}}" alt="User Avatar"
                             class="img-size-50 mr-3 img-circle">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -85,7 +85,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
+                        <img src="{{asset('dist/img/user8-128x128.jpg')}}" alt="User Avatar"
                             class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -303,6 +303,16 @@
                         </li>
                     </ul>
                 </li>
+                
+                <li class="nav-item">
+                    <a href="{{url('emergencia')}}"
+                            class="{{ Request::path() === 'emergencia' ? 'nav-link active' : 'nav-link' }}">
+                            <i class="nav-icon fas fa-exclamation-triangle"></i>
+                            <p>
+                                Reportar emergencia
+                            </p>
+                        </a>
+                    </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -327,7 +337,7 @@
 <!-- /.content-wrapper -->
 <footer class="main-footer">
     <!-- NO QUITAR -->
-    <strong>Tutoriales YouTube
+    <strong>
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0
         </div>
