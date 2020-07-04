@@ -3,11 +3,11 @@
 @section('content')
 <div class="container" >
 <a href="usuarios/create"> <button type="button" class="btn btn-success float-right" > Agregar usuario </button> </a>
-<h2> Lista de usuarios </h2> 
+<h2> Lista de usuarios </h2>
 <h6>
   @if($search)
   <div class="alert alert-primary" role="alert">
-  Resultados de tu busqueda {{$search}} 
+  Resultados de tu busqueda {{$search}}
 </div>
   @endif
 </h6>
@@ -32,7 +32,8 @@
               <a href="{{route('usuarios.edit', $user->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>
               @csrf
               @method('DELETE')
-              <a href=""><button type="submit" class="btn btn-danger">Eliminar</button></a>
+              
+              <button type="submit" class="btn btn-danger" onclick= "return confirm('¿Seguro que desea Eliminar el reporte?')"><i class="far fa-trash-alt"></i></button></button>
             </form>
             </td>
         </tr>
